@@ -900,10 +900,10 @@
           localStorage.setItem('copybatch_quota', JSON.stringify({ date: today, count: 0 }));
           return 5;
         }
-        return Math.max(0, 9999999999 - data.count);
+        return Math.max(0, 5 - data.count);
       }
       localStorage.setItem('copybatch_quota', JSON.stringify({ date: today, count: 0 }));
-      return 9999999999;
+      return 5;
     }
 
     function updateQuota(amount) {
