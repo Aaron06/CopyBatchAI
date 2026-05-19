@@ -1,0 +1,1043 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CopyBatch AI - AI-Powered Content Generation</title>
+  <script src="config.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            dark: {
+              900: '#0f172a',
+              800: '#1e293b',
+              700: '#334155',
+              600: '#475569',
+            },
+            accent: {
+              500: '#10b981',
+              400: '#34d399',
+              300: '#6ee7b7',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    @layer utilities {
+      .text-gradient {
+        background: linear-gradient(135deg, #10b981 0%, #34d399 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+      .bg-gradient-accent {
+        background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      }
+      .glass-effect {
+        background: rgba(30, 41, 59, 0.8);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(71, 85, 105, 0.5);
+      }
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+  </style>
+</head>
+<body class="bg-dark-900 text-gray-100 min-h-screen">
+  <nav class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-dark-900/90 backdrop-blur-md">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+      <div class="flex items-center justify-between">
+        <a href="#home" class="flex items-center gap-2">
+          <div class="w-10 h-10 bg-gradient-accent rounded-xl flex items-center justify-center">
+            <span class="text-white font-bold text-lg">CB</span>
+          </div>
+          <span class="text-xl font-bold text-white">CopyBatch AI</span>
+        </a>
+
+        <div class="hidden md:flex items-center gap-8">
+          <a href="#home" class="text-gray-400 hover:text-accent-400 transition-colors">Home</a>
+          <a href="#generator" class="text-gray-400 hover:text-accent-400 transition-colors">Generator</a>
+          <a href="#features" class="text-gray-400 hover:text-accent-400 transition-colors">Features</a>
+          <a href="#pricing" class="text-gray-400 hover:text-accent-400 transition-colors">Pricing</a>
+          <a href="#how-it-works" class="text-gray-400 hover:text-accent-400 transition-colors">How It Works</a>
+        </div>
+
+        <div class="hidden md:flex items-center gap-4">
+          <button class="px-4 py-2 text-gray-400 hover:text-white transition-colors">Sign In</button>
+          <a href="#pricing" class="px-5 py-2.5 bg-gradient-accent text-white font-semibold rounded-lg hover:opacity-90 transition-opacity">Get Started</a>
+        </div>
+
+        <button id="mobileMenuBtn" class="md:hidden text-white p-2" onclick="toggleMobileMenu()">
+          <svg id="mobileMenuIcon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+      </div>
+
+      <div id="mobileMenu" class="md:hidden mt-4 pb-4 border-t border-dark-700 pt-4 hidden">
+        <div class="flex flex-col gap-4">
+          <a href="#home" class="text-gray-400 hover:text-accent-400 transition-colors" onclick="toggleMobileMenu()">Home</a>
+          <a href="#generator" class="text-gray-400 hover:text-accent-400 transition-colors" onclick="toggleMobileMenu()">Generator</a>
+          <a href="#features" class="text-gray-400 hover:text-accent-400 transition-colors" onclick="toggleMobileMenu()">Features</a>
+          <a href="#pricing" class="text-gray-400 hover:text-accent-400 transition-colors" onclick="toggleMobileMenu()">Pricing</a>
+          <a href="#how-it-works" class="text-gray-400 hover:text-accent-400 transition-colors" onclick="toggleMobileMenu()">How It Works</a>
+          <div class="flex flex-col gap-3 mt-4 pt-4 border-t border-dark-700">
+            <button class="px-4 py-2 text-gray-400 hover:text-white transition-colors">Sign In</button>
+            <a href="#pricing" class="px-5 py-2.5 bg-gradient-accent text-white font-semibold rounded-lg hover:opacity-90 transition-opacity text-center" onclick="toggleMobileMenu()">Get Started</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <section id="home" class="pt-32 pb-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-4xl mx-auto">
+        <div class="inline-flex items-center gap-2 px-4 py-2 bg-dark-800 border border-dark-700 rounded-full mb-8">
+          <span class="w-2 h-2 bg-accent-500 rounded-full animate-pulse"></span>
+          <span class="text-sm text-gray-400">5 Free Generations Daily</span>
+        </div>
+
+        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6">
+          AI-Powered
+          <span class="text-gradient"> Bulk Content</span>
+          <br /> Generation
+        </h1>
+
+        <p class="text-lg text-gray-400 mb-10 max-w-2xl mx-auto">
+          Create high-quality copy for any platform in seconds. Perfect for marketers, content creators, and businesses.
+        </p>
+
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a href="#generator" class="px-8 py-4 bg-gradient-accent text-white font-semibold rounded-xl hover:opacity-90 transition-opacity">
+            Start Generating Free
+          </a>
+          <a href="#how-it-works" class="px-8 py-4 bg-dark-800 border border-dark-700 text-white font-semibold rounded-xl hover:bg-dark-700 transition-colors">
+            Learn How It Works
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="features" class="py-20 bg-dark-900">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl font-bold text-white mb-4">Why Choose CopyBatch AI</h2>
+        <p class="text-gray-400">Powerful features designed for content creators</p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="bg-dark-800 border border-dark-700 rounded-xl p-6 hover:border-accent-500/50 transition-colors">
+          <div class="text-3xl mb-4">⚡</div>
+          <h3 class="text-white font-semibold mb-2">Fast Generation</h3>
+          <p class="text-gray-400 text-sm">Generate multiple high-quality copies in seconds.</p>
+        </div>
+        <div class="bg-dark-800 border border-dark-700 rounded-xl p-6 hover:border-accent-500/50 transition-colors">
+          <div class="text-3xl mb-4">🎨</div>
+          <h3 class="text-white font-semibold mb-2">Multiple Styles</h3>
+          <p class="text-gray-400 text-sm">Choose from Professional, Casual, Creative or Concise.</p>
+        </div>
+        <div class="bg-dark-800 border border-dark-700 rounded-xl p-6 hover:border-accent-500/50 transition-colors">
+          <div class="text-3xl mb-4">📱</div>
+          <h3 class="text-white font-semibold mb-2">Any Platform</h3>
+          <p class="text-gray-400 text-sm">Perfect for social media, blogs, emails and more.</p>
+        </div>
+        <div class="bg-dark-800 border border-dark-700 rounded-xl p-6 hover:border-accent-500/50 transition-colors">
+          <div class="text-3xl mb-4">🔒</div>
+          <h3 class="text-white font-semibold mb-2">Secure & Private</h3>
+          <p class="text-gray-400 text-sm">Your data stays with you. No storage on our servers.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="generator" class="py-20 bg-dark-800">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-10">
+        <h1 class="text-3xl font-bold text-white mb-3">AI Content Generator</h1>
+        <p id="quotaDisplay" class="text-gray-400">You have <span class="text-accent-400 font-semibold">5</span> free generations remaining today</p>
+      </div>
+
+      <div class="bg-dark-900 border border-dark-700 rounded-2xl p-6 sm:p-8">
+        <div class="mb-6">
+          <label class="block text-white font-semibold mb-2">Enter Your Keyword</label>
+          <input id="keywordInput" type="text" placeholder="e.g., Sustainable Fashion, Digital Marketing, Fitness"
+            class="w-full bg-dark-800 border border-dark-600 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-accent-500 transition-colors" />
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6">
+          <div>
+            <label class="block text-white font-semibold mb-2">Select Scenario</label>
+            <div class="grid grid-cols-2 gap-2">
+              <button class="scenario-btn px-3 py-2 rounded-lg text-sm font-medium bg-accent-500 text-white" data-scenario="product">📦 Product</button>
+              <button class="scenario-btn px-3 py-2 rounded-lg text-sm font-medium bg-dark-800 text-gray-400 hover:bg-dark-700" data-scenario="social">📱 Social</button>
+              <button class="scenario-btn px-3 py-2 rounded-lg text-sm font-medium bg-dark-800 text-gray-400 hover:bg-dark-700" data-scenario="youtube">📺 YouTube</button>
+              <button class="scenario-btn px-3 py-2 rounded-lg text-sm font-medium bg-dark-800 text-gray-400 hover:bg-dark-700" data-scenario="blog">📝 Blog</button>
+              <button class="scenario-btn px-3 py-2 rounded-lg text-sm font-medium bg-dark-800 text-gray-400 hover:bg-dark-700" data-scenario="instagram">📸 Instagram</button>
+              <button class="scenario-btn px-3 py-2 rounded-lg text-sm font-medium bg-dark-800 text-gray-400 hover:bg-dark-700" data-scenario="email">📧 Email</button>
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-white font-semibold mb-2">Select Style</label>
+            <div class="grid grid-cols-2 gap-2">
+              <button class="style-btn px-3 py-2 rounded-lg text-sm font-medium bg-accent-500 text-white" data-style="professional">Professional</button>
+              <button class="style-btn px-3 py-2 rounded-lg text-sm font-medium bg-dark-800 text-gray-400 hover:bg-dark-700" data-style="casual">Casual</button>
+              <button class="style-btn px-3 py-2 rounded-lg text-sm font-medium bg-dark-800 text-gray-400 hover:bg-dark-700" data-style="creative">Creative</button>
+              <button class="style-btn px-3 py-2 rounded-lg text-sm font-medium bg-dark-800 text-gray-400 hover:bg-dark-700" data-style="concise">Concise</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="mb-6">
+          <label class="block text-white font-semibold mb-2">Number of Results: <span id="countDisplay">3</span></label>
+          <input id="countSlider" type="range" min="1" max="10" value="3"
+            class="w-full h-2 bg-dark-800 rounded-lg appearance-none cursor-pointer accent-accent-500" />
+          <div class="flex justify-between text-xs text-gray-500 mt-1">
+            <span>1</span>
+            <span>10</span>
+          </div>
+        </div>
+
+        <button id="generateBtn" onclick="generateContent()" class="w-full py-4 bg-gradient-accent text-white font-semibold rounded-xl hover:opacity-90 transition-opacity flex items-center justify-center gap-2">
+          Generate Content
+        </button>
+      </div>
+
+      <div id="resultsContainer" class="mt-8 hidden">
+        <div class="flex items-center justify-between mb-4">
+          <h2 class="text-xl font-semibold text-white">Results</h2>
+          <button id="copyAllBtn" onclick="copyAllResults()" class="flex items-center gap-2 px-4 py-2 bg-dark-900 border border-dark-700 rounded-lg text-gray-400 hover:text-accent-400 hover:border-accent-500/50 transition-colors">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+            </svg>
+            Copy All
+          </button>
+        </div>
+
+        <div id="resultsList" class="space-y-4">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="how-it-works" class="py-20 bg-dark-900">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl font-bold text-white mb-4">How It Works</h2>
+        <p class="text-gray-400 max-w-2xl mx-auto">Creating amazing content has never been easier. Follow these simple steps to get started.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="text-center">
+          <div class="w-16 h-16 bg-gradient-accent rounded-2xl flex items-center justify-center mx-auto mb-6">
+            <span class="text-white font-bold text-2xl">01</span>
+          </div>
+          <h3 class="text-xl font-semibold text-white mb-3">Enter Your Keyword</h3>
+          <p class="text-gray-400">Start by entering a keyword or topic you want to generate content about.</p>
+        </div>
+        <div class="text-center">
+          <div class="w-16 h-16 bg-gradient-accent rounded-2xl flex items-center justify-center mx-auto mb-6">
+            <span class="text-white font-bold text-2xl">02</span>
+          </div>
+          <h3 class="text-xl font-semibold text-white mb-3">Choose Scenario & Style</h3>
+          <p class="text-gray-400">Select from 6 content scenarios and 4 writing styles to match your brand voice.</p>
+        </div>
+        <div class="text-center">
+          <div class="w-16 h-16 bg-gradient-accent rounded-2xl flex items-center justify-center mx-auto mb-6">
+            <span class="text-white font-bold text-2xl">03</span>
+          </div>
+          <h3 class="text-xl font-semibold text-white mb-3">Generate & Copy</h3>
+          <p class="text-gray-400">Click generate and watch as AI creates multiple content pieces in seconds.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="pricing" class="py-20 bg-dark-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl font-bold text-white mb-4">Pricing</h2>
+        <p class="text-gray-400 max-w-2xl mx-auto">Simple, transparent pricing for content creators of all sizes</p>
+      </div>
+
+      <div id="pricingPlan1" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div class="bg-dark-900 border border-dark-700 rounded-2xl p-8">
+          <h3 class="text-xl font-bold text-white mb-2">Free Trial</h3>
+          <p class="text-gray-400 text-sm mb-6">Perfect for trying out the platform</p>
+          <div class="mb-6">
+            <span class="text-4xl font-bold text-white">$0</span>
+            <span class="text-gray-500">/forever</span>
+          </div>
+          <ul class="space-y-3 mb-8">
+            <li class="flex items-center gap-3 text-gray-400">
+              <svg class="w-5 h-5 text-accent-500" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+              </svg>
+              5 generations per day
+            </li>
+            <li class="flex items-center gap-3 text-gray-400">
+              <svg class="w-5 h-5 text-accent-500" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+              </svg>
+              All content scenarios
+            </li>
+            <li class="flex items-center gap-3 text-gray-400">
+              <svg class="w-5 h-5 text-accent-500" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+              </svg>
+              All writing styles
+            </li>
+            <li class="flex items-center gap-3 text-gray-400">
+              <svg class="w-5 h-5 text-accent-500" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+              </svg>
+              Local storage
+            </li>
+          </ul>
+          <button class="w-full py-3 bg-dark-700 text-gray-300 font-semibold rounded-xl hover:bg-dark-600 transition-colors">Get Started</button>
+        </div>
+
+        <div class="relative bg-dark-900 border-2 border-accent-500 rounded-2xl p-8">
+          <div class="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 bg-gradient-accent text-white text-sm font-semibold rounded-full">
+            One-time Purchase
+          </div>
+          <h3 class="text-xl font-bold text-white mb-2">Lifetime Access</h3>
+          <p class="text-gray-400 text-sm mb-6">Unlock unlimited generations forever</p>
+          <div class="mb-6">
+            <span class="text-4xl font-bold text-white">$14.9</span>
+            <span class="text-gray-500">one-time</span>
+          </div>
+          <ul class="space-y-3 mb-8">
+            <li class="flex items-center gap-3 text-gray-400">
+              <svg class="w-5 h-5 text-accent-500" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+              </svg>
+              Unlimited generations
+            </li>
+            <li class="flex items-center gap-3 text-gray-400">
+              <svg class="w-5 h-5 text-accent-500" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+              </svg>
+              All content scenarios
+            </li>
+            <li class="flex items-center gap-3 text-gray-400">
+              <svg class="w-5 h-5 text-accent-500" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+              </svg>
+              All writing styles
+            </li>
+            <li class="flex items-center gap-3 text-gray-400">
+              <svg class="w-5 h-5 text-accent-500" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+              </svg>
+              Priority processing
+            </li>
+            <li class="flex items-center gap-3 text-gray-400">
+              <svg class="w-5 h-5 text-accent-500" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+              </svg>
+              Export options
+            </li>
+            <li class="flex items-center gap-3 text-gray-400">
+              <svg class="w-5 h-5 text-accent-500" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+              </svg>
+              Lifetime updates
+            </li>
+          </ul>
+          <button class="w-full py-3 bg-gradient-accent text-white font-semibold rounded-xl hover:opacity-90 transition-opacity">Buy Now</button>
+        </div>
+      </div>
+
+      <div id="pricingPlan2" class="grid grid-cols-1 md:grid-cols-3 gap-8 hidden">
+        <div class="bg-dark-900 border border-dark-700 rounded-2xl p-8">
+          <h3 class="text-xl font-bold text-white mb-2">Free Trial</h3>
+          <p class="text-gray-400 text-sm mb-6">Perfect for trying out the platform</p>
+          <div class="mb-6">
+            <span class="text-4xl font-bold text-white">$0</span>
+            <span class="text-gray-500">/forever</span>
+          </div>
+          <ul class="space-y-3 mb-8">
+            <li class="flex items-center gap-3 text-gray-400">
+              <svg class="w-5 h-5 text-accent-500" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+              </svg>
+              5 generations per day
+            </li>
+            <li class="flex items-center gap-3 text-gray-400">
+              <svg class="w-5 h-5 text-accent-500" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+              </svg>
+              All content scenarios
+            </li>
+            <li class="flex items-center gap-3 text-gray-400">
+              <svg class="w-5 h-5 text-accent-500" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+              </svg>
+              All writing styles
+            </li>
+            <li class="flex items-center gap-3 text-gray-400">
+              <svg class="w-5 h-5 text-accent-500" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+              </svg>
+              Local storage
+            </li>
+          </ul>
+          <button class="w-full py-3 bg-dark-700 text-gray-300 font-semibold rounded-xl hover:bg-dark-600 transition-colors">Get Started</button>
+        </div>
+
+        <div class="relative bg-dark-900 border-2 border-accent-500 rounded-2xl p-8">
+          <div class="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 bg-gradient-accent text-white text-sm font-semibold rounded-full">
+            Monthly
+          </div>
+          <h3 class="text-xl font-bold text-white mb-2">Pro Monthly</h3>
+          <p class="text-gray-400 text-sm mb-6">Flexible monthly subscription</p>
+          <div class="mb-6">
+            <span class="text-4xl font-bold text-white">$1.99</span>
+            <span class="text-gray-500">/month</span>
+          </div>
+          <ul class="space-y-3 mb-8">
+            <li class="flex items-center gap-3 text-gray-400">
+              <svg class="w-5 h-5 text-accent-500" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+              </svg>
+              Unlimited generations
+            </li>
+            <li class="flex items-center gap-3 text-gray-400">
+              <svg class="w-5 h-5 text-accent-500" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+              </svg>
+              All content scenarios
+            </li>
+            <li class="flex items-center gap-3 text-gray-400">
+              <svg class="w-5 h-5 text-accent-500" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+              </svg>
+              All writing styles
+            </li>
+            <li class="flex items-center gap-3 text-gray-400">
+              <svg class="w-5 h-5 text-accent-500" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+              </svg>
+              Priority processing
+            </li>
+            <li class="flex items-center gap-3 text-gray-400">
+              <svg class="w-5 h-5 text-accent-500" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+              </svg>
+              Export options
+            </li>
+            <li class="flex items-center gap-3 text-gray-400">
+              <svg class="w-5 h-5 text-accent-500" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+              </svg>
+              Cancel anytime
+            </li>
+          </ul>
+          <button class="w-full py-3 bg-gradient-accent text-white font-semibold rounded-xl hover:opacity-90 transition-opacity">Start Subscription</button>
+        </div>
+
+        <div class="bg-dark-900 border border-dark-700 rounded-2xl p-8">
+          <h3 class="text-xl font-bold text-white mb-2">Pro Annual</h3>
+          <p class="text-gray-400 text-sm mb-6">Best value for long-term use</p>
+          <div class="mb-6">
+            <span class="text-4xl font-bold text-white">$20.19</span>
+            <span class="text-gray-500">/year</span>
+          </div>
+          <ul class="space-y-3 mb-8">
+            <li class="flex items-center gap-3 text-gray-400">
+              <svg class="w-5 h-5 text-accent-500" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+              </svg>
+              Everything in Monthly
+            </li>
+            <li class="flex items-center gap-3 text-gray-400">
+              <svg class="w-5 h-5 text-accent-500" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+              </svg>
+              Save 20% compared to monthly
+            </li>
+            <li class="flex items-center gap-3 text-gray-400">
+              <svg class="w-5 h-5 text-accent-500" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+              </svg>
+              Free updates for a year
+            </li>
+            <li class="flex items-center gap-3 text-gray-400">
+              <svg class="w-5 h-5 text-accent-500" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+              </svg>
+              Priority support
+            </li>
+          </ul>
+          <button class="w-full py-3 bg-dark-700 text-gray-300 font-semibold rounded-xl hover:bg-dark-600 transition-colors">Start Annual</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="bg-dark-900 border-t border-dark-700">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div class="col-span-1 md:col-span-2">
+          <div class="flex items-center gap-2 mb-4">
+            <div class="w-10 h-10 bg-gradient-accent rounded-xl flex items-center justify-center">
+              <span class="text-white font-bold text-lg">CB</span>
+            </div>
+            <span className="text-xl font-bold text-white">CopyBatch AI</span>
+          </div>
+          <p class="text-gray-400 text-sm max-w-md">
+            Generate high-quality content at scale with AI. Perfect for marketers, content creators, and businesses.
+          </p>
+        </div>
+        <div>
+          <h3 className="text-white font-semibold mb-4">Product</h3>
+          <ul className="space-y-2">
+            <li><a href="#features" className="text-gray-400 text-sm hover:text-accent-400 transition-colors">Features</a></li>
+            <li><a href="#pricing" className="text-gray-400 text-sm hover:text-accent-400 transition-colors">Pricing</a></li>
+            <li><a href="#how-it-works" className="text-gray-400 text-sm hover:text-accent-400 transition-colors">How It Works</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 className="text-white font-semibold mb-4">Company</h3>
+          <ul className="space-y-2">
+            <li><span className="text-gray-400 text-sm cursor-pointer hover:text-accent-400 transition-colors">About Us</span></li>
+            <li><span className="text-gray-400 text-sm cursor-pointer hover:text-accent-400 transition-colors">Blog</span></li>
+            <li><span className="text-gray-400 text-sm cursor-pointer hover:text-accent-400 transition-colors">Contact</span></li>
+          </ul>
+        </div>
+      </div>
+      <div className="mt-8 pt-8 border-t border-dark-700 flex flex-col md:flex-row justify-between items-center gap-4">
+        <p className="text-gray-500 text-sm">2024 CopyBatch AI. All rights reserved.</p>
+        <div className="flex gap-6">
+          <span className="text-gray-500 text-sm cursor-pointer hover:text-accent-400 transition-colors">Privacy Policy</span>
+          <span className="text-gray-500 text-sm cursor-pointer hover:text-accent-400 transition-colors">Terms of Service</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <div id="upgradeModal" class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4 hidden">
+    <div class="bg-dark-800 border border-dark-700 rounded-2xl p-8 max-w-md w-full">
+      <div class="text-center">
+        <div class="w-16 h-16 bg-accent-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
+          <svg class="w-8 h-8 text-accent-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
+          </svg>
+        </div>
+        <h3 class="text-xl font-bold text-white mb-2">Daily Quota Exceeded</h3>
+        <p class="text-gray-400 mb-6">Upgrade to unlock unlimited content generation and advanced features.</p>
+        <div class="flex gap-3">
+          <button onclick="closeModal()" class="flex-1 py-3 bg-dark-700 text-gray-300 font-semibold rounded-xl hover:bg-dark-600 transition-colors">Close</button>
+          <button onclick="closeModal(); document.querySelector('#pricing').scrollIntoView({behavior:'smooth'})" class="flex-1 py-3 bg-gradient-accent text-white font-semibold rounded-xl hover:opacity-90 transition-opacity">Upgrade Now</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    var selectedScenario = 'product';
+    var selectedStyle = 'professional';
+    var results = [];
+
+    var mockResults = {
+      product: {
+        professional: [
+          'Elevate your daily routine with our premium product, crafted for discerning individuals who demand excellence.',
+          'Experience unparalleled quality with our expertly designed solution, engineered to exceed expectations.',
+          'Discover the perfect blend of functionality and elegance in our thoughtfully created product line.',
+          'Crafted with meticulous attention to detail, our product sets the standard for quality and reliability.',
+          'Engineered to deliver exceptional performance, our product is the smart choice for discerning consumers.',
+          'Experience the difference with our premium offering, designed to enhance your everyday life.',
+          'Our product combines innovative design with superior craftsmanship for an unparalleled user experience.',
+          'Invest in quality that lasts. Our product is built to exceed your highest expectations.',
+          'Discover why professionals trust our product for their most demanding needs.',
+          'Elevate your standards with our premium product, crafted for those who refuse to settle.',
+        ],
+        casual: [
+          'Check out our awesome product - it\'s perfect for anyone looking to upgrade their game!',
+          'Our product is super cool and totally worth checking out. You won\'t be disappointed!',
+          'Looking for something great? Our product has got you covered in the best way possible.',
+          'This product is awesome! Perfect for anyone who wants to level up their daily routine.',
+          'You need this in your life! Our product is game-changing and totally affordable.',
+          'Trust me, you\'ll love this product. It\'s simple, effective, and totally worth it.',
+          'Been using this product for weeks and I can\'t imagine my life without it now!',
+          'Great product at a great price! Highly recommend to anyone looking for quality.',
+          'So glad I found this product - it\'s exactly what I was looking for!',
+          'Perfect product for everyday use. Simple, reliable, and totally awesome!',
+        ],
+        creative: [
+          'Unleash your potential with a product that transforms ordinary moments into extraordinary experiences.',
+          'Step into a world of endless possibilities with our innovative creation that inspires and delights.',
+          'Where imagination meets innovation - our product redefines what you thought was possible.',
+          'Ignite your creativity with a product designed to inspire and empower your journey.',
+          'Experience the magic of innovation with our groundbreaking product that changes the game.',
+          'Transform your world with a product that turns dreams into reality, one moment at a time.',
+          'Discover a new dimension of possibility with our revolutionary approach to everyday essentials.',
+          'Elevate your experience with a product that blends artistry and functionality seamlessly.',
+          'Uncover the extraordinary in the ordinary with our thoughtfully crafted creation.',
+          'Embrace the future with a product that challenges conventions and inspires greatness.',
+        ],
+        concise: [
+          'Premium quality product for everyday use.',
+          'Elegant design meets exceptional functionality.',
+          'Elevate your experience with our expertly crafted solution.',
+          'Quality you can trust, performance you can rely on.',
+          'Sleek design, powerful performance, unmatched value.',
+          'Designed for life. Built to last.',
+          'Simple. Elegant. Exceptional.',
+          'Elevate your daily routine with premium quality.',
+          'Crafted with care, designed for you.',
+          'The perfect blend of form and function.',
+        ],
+      },
+      social: {
+        professional: [
+          'Discover industry insights and expert tips to grow your business. Follow for valuable content.',
+          'Stay updated with the latest trends and strategies. Join our community of professionals.',
+          'Expert advice and actionable insights for ambitious entrepreneurs and business leaders.',
+          'Learn from industry leaders and take your business to new heights.',
+          'Stay ahead of the curve with cutting-edge insights and strategic guidance.',
+          'Join a community of like-minded professionals committed to growth and success.',
+          'Gain competitive advantage with exclusive insights and expert analysis.',
+          'Elevate your business strategy with data-driven insights and proven methodologies.',
+          'Connect with industry experts and unlock new opportunities for growth.',
+          'Access premium content designed to accelerate your professional journey.',
+        ],
+        casual: [
+          'Hey guys! Just wanted to share some awesome tips I\'ve been loving lately. Hope you enjoy!',
+          'What\'s up everyone? Here\'s something cool I thought you might like. Let me know what you think!',
+          'Just a quick post to share some positive vibes and useful stuff. Hope your day is going great!',
+          'Hey friends! Check out this awesome tip that changed my week for the better!',
+          'Just wanted to pop in and share something fun I discovered recently. You gotta try this!',
+          'Hope everyone\'s having an amazing day! Here\'s a little something to make it even better.',
+          'Quick question - what\'s been bringing you joy lately? Drop a comment below!',
+          'Sharing some good vibes and great tips today. Hope this helps someone out there!',
+          'Hey everyone! Just wanted to say I appreciate each and every one of you. Have a fantastic day!',
+          'Found this awesome resource and had to share! Hope it helps you as much as it helped me.',
+        ],
+        creative: [
+          '✨ Transform your mindset and unlock new possibilities with these powerful insights ✨',
+          '🚀 Ready to level up? These game-changing ideas will revolutionize your approach! 🚀',
+          '🌟 Discover the secrets to success that others are missing. Your journey starts now! 🌟',
+          '💡 Unlock your full potential with these transformative strategies and ideas! 💡',
+          '🔥 Ignite your passion and take action with these powerful mindset shifts! 🔥',
+          '🌈 Embrace change and discover a world of new opportunities waiting for you! 🌈',
+          '⚡ Supercharge your growth with these electrifying insights and actionable steps! ⚡',
+          '💫 Elevate your journey with these inspiring ideas that spark transformation! 💫',
+          '🎯 Focus your energy and achieve extraordinary results with these powerful tips! �',
+          '�🌟 Your best self is waiting - discover how to unlock it today! 🌟',
+        ],
+        concise: [
+          'Daily tips for growth and success.',
+          'Trending insights you need to know.',
+          'Join our community of achievers.',
+          'Expert advice for everyday success.',
+          'Inspiration for your journey.',
+          'Practical tips for real results.',
+          'Connect, learn, grow together.',
+          'Daily motivation and insights.',
+          'Your go-to source for growth.',
+          'Success starts with small steps.',
+        ],
+      },
+      youtube: {
+        professional: [
+          'Complete Guide to Mastering [Topic] in 2024',
+          'Expert Strategies for Achieving [Goal] Successfully',
+          'Ultimate Tutorial: Everything You Need to Know About [Subject]',
+          'Advanced Techniques for [Topic] Mastery',
+          'Pro Tips from Industry Leaders on [Subject]',
+          'Step-by-Step Guide to [Topic] Excellence',
+          'The Definitive Guide to [Subject] for Beginners',
+          'Mastering [Topic]: Essential Strategies Revealed',
+          'Expert Insights: How to Excel at [Subject]',
+          'Complete [Topic] Course: From Beginner to Pro',
+        ],
+        casual: [
+          'How I Learned [Skill] in Just 30 Days - You Can Too!',
+          'My Favorite [Topic] Hacks That Actually Work',
+          'Trying Out [Trend] - Here\'s What Happened',
+          'I Tried [Challenge] for a Week - Results Inside!',
+          'My [Topic] Journey: From Zero to Hero',
+          'Testing Viral [Trend] - Was It Worth It?',
+          '5 [Topic] Tips That Changed My Life',
+          'I Quit [Bad Habit] - Here\'s How It Went',
+          'My Honest Review of [Product/Service]',
+          'How [Topic] Changed My Daily Routine',
+        ],
+        creative: [
+          '[Topic] Changed My Life - Here\'s How It Can Change Yours',
+          'The Hidden Secrets of [Subject] No One Talks About',
+          'Why [Topic] Is More Important Than You Think',
+          'What They Don\'t Tell You About [Subject]',
+          'The Untold Story of [Topic] and Why It Matters',
+          'How [Subject] Transformed My Perspective',
+          'Discover the Magic of [Topic] - You\'ll Never Look Back',
+          '[Topic] Isn\'t What You Think - Let Me Explain',
+          'The Surprising Truth About [Subject] Everyone Misses',
+          'Why [Topic] Should Be Your Next Big Focus',
+        ],
+        concise: [
+          'Master [Topic] in Minutes',
+          'Quick Guide to [Subject]',
+          'Essential [Topic] Tips',
+          'Learn [Subject] Fast',
+          '[Topic] Hacks You Need',
+          'Quick [Subject] Tutorial',
+          'Master [Topic] Today',
+          '[Subject] Made Easy',
+          'Fast [Topic] Guide',
+          'Essential [Subject] Skills',
+        ],
+      },
+      blog: {
+        professional: [
+          'In today\'s competitive landscape, understanding [topic] is essential for business success. Let\'s explore why.',
+          'The future of [industry] is rapidly evolving. Here\'s what you need to know to stay ahead.',
+          'Expert analysis reveals key trends shaping [field] and how they impact your strategy.',
+          'Navigating the complexities of [topic] requires strategic insight and informed decision-making.',
+          'As [industry] continues to evolve, staying informed is more critical than ever before.',
+          'Understanding [topic] is no longer optional - it\'s a necessity for sustainable growth.',
+          'Recent developments in [field] are transforming how businesses approach [topic].',
+          'The intersection of [topic] and [trend] presents unprecedented opportunities for innovation.',
+          'Industry leaders are redefining what success means in the evolving [field] landscape.',
+          'To thrive in today\'s market, mastering [topic] is an essential skill for every professional.',
+        ],
+        casual: [
+          'Hey there! I\'ve been thinking a lot about [topic] lately, and I wanted to share some thoughts with you.',
+          'Let\'s talk about [subject] - it\'s something that\'s been on my mind, and I think you\'ll find it interesting.',
+          'I wanted to dive into [topic] today because it\'s something that affects so many of us. Let\'s explore together!',
+          'Have you ever wondered about [topic]? I know I have, and I wanted to share what I\'ve learned.',
+          'Let\'s have a chat about [subject] - it\'s a topic that I think deserves more attention.',
+          'I\'ve been doing some thinking about [topic], and I wanted to bounce some ideas off you.',
+          'Today I want to talk about [subject] - something that\'s been fascinating me lately.',
+          'Let\'s explore [topic] together - I think there\'s a lot we can learn from this.',
+          'I wanted to share my thoughts on [subject] with you - it\'s been on my mind quite a bit.',
+          'Have you noticed how [topic] keeps popping up everywhere? Let\'s talk about why that is.',
+        ],
+        creative: [
+          'Imagine a world where [concept] becomes reality. That future is closer than you think.',
+          'The story of [topic] is one of innovation, passion, and relentless pursuit. Let\'s uncover its secrets.',
+          'What if everything you knew about [subject] was about to change? Prepare to have your mind opened.',
+          'In a world dominated by [trend], [topic] emerges as a beacon of innovation and possibility.',
+          'The journey of [topic] from idea to reality is a testament to human creativity and determination.',
+          'Beyond the surface lies a world of [topic] waiting to be discovered - let\'s explore together.',
+          'What if [topic] held the key to solving some of our most pressing challenges?',
+          'The evolution of [subject] tells a story of resilience, innovation, and endless possibility.',
+          'In the realm of [topic], boundaries are meant to be pushed and possibilities are limitless.',
+          'The magic of [subject] lies in its ability to transform ordinary moments into extraordinary experiences.',
+        ],
+        concise: [
+          'Why [topic] matters more than ever before.',
+          'Understanding [subject] in simple terms.',
+          'Key insights into [topic] for beginners.',
+          'The basics of [subject] explained.',
+          'Why [topic] is worth your attention.',
+          'Simple guide to understanding [subject].',
+          'Essential facts about [topic].',
+          'What you need to know about [subject].',
+          'Introduction to [topic] basics.',
+          'Understanding [subject] made simple.',
+        ],
+      },
+      instagram: {
+        professional: [
+          'Capturing moments that matter. Elevate your feed with purposeful content. #ProfessionalGrowth',
+          'Crafting stories that resonate. Every post tells a story worth sharing. #ContentCreation',
+          'Building connections through authentic visuals. Join our journey of growth. #BrandStory',
+          'Creating meaningful content that inspires and engages. Follow for daily insights. #Inspiration',
+          'Sharing behind-the-scenes moments and professional insights. Join our community. #CareerGrowth',
+          'Curating content that adds value. Every post is crafted with intention. #ValueContent',
+          'Connecting with like-minded professionals. Building community one post at a time. #Networking',
+          'Sharing expertise and fostering growth. Your journey starts here. #ProfessionalJourney',
+          'Creating visuals that tell your story. Elevate your personal brand. #PersonalBranding',
+          'Inspiring action through thoughtful content. Follow for motivation and insights. #DailyInspiration',
+        ],
+        casual: [
+          'Just hanging out and enjoying the day! Hope your weekend is going amazing! 😊',
+          'Throwback to this awesome moment! Sometimes you just gotta pause and appreciate the good stuff. ✨',
+          'Chillin\' and working on some fun projects. What are you up to today? Let me know! 👇',
+          'Sunshine and good vibes today! Hope everyone\'s having an awesome day! ☀️',
+          'Just finished a great workout - feeling energized! What\'s making you feel good today? 💪',
+          'Coffee, sunshine, and good music - the perfect morning! ☕️✨',
+          'Exploring new places and loving every minute of it! 🌍❤️',
+          'Just wanted to say hi and share a little happiness with you all! 😊',
+          'Weekend vibes are in full swing! Hope you\'re doing something fun! 🎉',
+          'Grateful for this beautiful day and all the little joys in life! 🙏',
+        ],
+        creative: [
+          '🎨 Where creativity meets inspiration. Every moment is a canvas waiting to be painted.',
+          '🌈 Embracing the beauty in everyday moments. Life is too short to miss the magic.',
+          '✨ Creating my own sunshine, one post at a time. Join me on this colorful journey!',
+          '🎭 Life is a stage - make every moment count. What role will you play today?',
+          '🌟 Finding light in the darkness and beauty in the ordinary. That\'s the magic of life.',
+          '🎪 Step into my world of color, creativity, and endless possibilities!',
+          '🌺 Blooming where I\'m planted and embracing every beautiful moment.',
+          '🎨 Painting my world with vibrant colors and unforgettable memories.',
+          '✨ Sparkling through life with joy, creativity, and a touch of magic!',
+          '🌈 Chasing rainbows and making dreams come true, one day at a time.',
+        ],
+        concise: [
+          'Living in the moment. #Grateful',
+          'Chasing dreams, one day at a time. #Hustle',
+          'Finding joy in the little things. #HappyLife',
+          'Sunshine and good vibes. #PositiveVibes',
+          'Live, love, laugh. #LifeIsGood',
+          'Dream big, work hard. #SuccessMindset',
+          'Enjoying the journey. #LiveInTheNow',
+          'Grateful for every moment. #Thankful',
+          'Creating my own happiness. #SelfLove',
+          'Embracing the day. #GoodVibesOnly',
+        ],
+      },
+      email: {
+        professional: [
+          'Dear [Name], We are excited to introduce our latest offering designed specifically for professionals like you.',
+          'Hi [Name], As a valued member of our community, we wanted to share an exclusive opportunity with you.',
+          'Dear [Name], Discover how our solution can transform your workflow and boost productivity.',
+          'Hello [Name], We\'re reaching out to share some exciting news about our upcoming product launch.',
+          'Dear [Name], Your expertise and insights are invaluable to us. We\'d love to hear your thoughts.',
+          'Hi [Name], Thank you for being a valued customer. We appreciate your continued support.',
+          'Dear [Name], We\'re thrilled to announce a special offer exclusively for our most loyal clients.',
+          'Hello [Name], As a leader in your field, we thought you\'d be interested in our latest innovation.',
+          'Dear [Name], We\'ve been working hard to enhance your experience, and we\'re excited to share the results.',
+          'Hi [Name], Your success is our priority. Let us help you achieve your goals this quarter.',
+        ],
+        casual: [
+          'Hey [Name]! Just wanted to shoot you a quick note to say hello and share something exciting!',
+          'Hi [Name], Hope you\'re doing well! I wanted to let you know about something cool we\'ve been working on.',
+          'Hey there [Name]! Thought you might be interested in this awesome update we just launched.',
+          'Hi [Name]! Quick question - have you had a chance to check out our latest feature yet?',
+          'Hey [Name], Just wanted to say thanks for being awesome! We really appreciate you.',
+          'Hi [Name], Hope your week is going great! Just wanted to share a quick update with you.',
+          'Hey there! Thought you might like to know about this cool thing we\'ve been working on. Let me know what you think!',
+          'Hi [Name], Long time no chat! How\'s everything going? Would love to catch up.',
+          'Hey [Name]! We\'ve got something fun coming up and we wanted you to be the first to know.',
+          'Hi [Name], Just a friendly reminder about our upcoming event - hope to see you there!',
+        ],
+        creative: [
+          '🌟 Exciting news is on its way! Something amazing is about to happen, and you\'re invited. 🌟',
+          '🚀 Buckle up! We\'re about to embark on an incredible journey together. Are you ready? 🚀',
+          '💡 Imagine a world where [benefit]. That world is here, and it starts with this email. 💡',
+          '🎁 Something special is heading your way - stay tuned for an exciting announcement! 🎁',
+          '✨ The future is bright, and it starts with you. Get ready for something extraordinary! ✨',
+          '🌌 We\'re about to unlock a new dimension of possibility - and you\'re invited to join us! 🌌',
+          '🎭 The stage is set, the curtains are about to rise - are you ready for the show? 🎭',
+          '🌟 Your next adventure starts here. Keep reading to discover what awaits you! 🌟',
+          '🚀 Get ready to elevate your experience. Something big is coming your way! 🚀',
+          '💫 The best is yet to come, and we couldn\'t be more excited to share it with you! 💫',
+        ],
+        concise: [
+          'Quick update: Check out our latest offering.',
+          'Important announcement for valued subscribers.',
+          'Exciting news we think you\'ll love.',
+          'Just a quick note to keep you updated.',
+          'New feature alert - you\'re going to love this!',
+          'Important update for our community.',
+          'Something exciting is coming your way!',
+          'Quick reminder: Don\'t miss out!',
+          'New update available - check it out!',
+          'Just wanted to share some great news!',
+        ],
+      },
+    };
+
+    function toggleMobileMenu() {
+      var menu = document.getElementById('mobileMenu');
+      var icon = document.getElementById('mobileMenuIcon');
+      menu.classList.toggle('hidden');
+      if (menu.classList.contains('hidden')) {
+        icon.innerHTML = '<path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />';
+      } else {
+        icon.innerHTML = '<path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />';
+      }
+    }
+
+    document.querySelectorAll('.scenario-btn').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        document.querySelectorAll('.scenario-btn').forEach(function(b) {
+          b.classList.remove('bg-accent-500', 'text-white');
+          b.classList.add('bg-dark-800', 'text-gray-400');
+        });
+        this.classList.add('bg-accent-500', 'text-white');
+        this.classList.remove('bg-dark-800', 'text-gray-400');
+        selectedScenario = this.dataset.scenario;
+      });
+    });
+
+    document.querySelectorAll('.style-btn').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        document.querySelectorAll('.style-btn').forEach(function(b) {
+          b.classList.remove('bg-accent-500', 'text-white');
+          b.classList.add('bg-dark-800', 'text-gray-400');
+        });
+        this.classList.add('bg-accent-500', 'text-white');
+        this.classList.remove('bg-dark-800', 'text-gray-400');
+        selectedStyle = this.dataset.style;
+      });
+    });
+
+    document.getElementById('countSlider').addEventListener('input', function() {
+      document.getElementById('countDisplay').textContent = this.value;
+    });
+
+    function getQuota() {
+      var today = new Date().toDateString();
+      var savedData = localStorage.getItem('copybatch_quota');
+      if (savedData) {
+        var data = JSON.parse(savedData);
+        if (data.date !== today) {
+          localStorage.setItem('copybatch_quota', JSON.stringify({ date: today, count: 0 }));
+          return 5;
+        }
+        return Math.max(0, 9999999999 - data.count);
+      }
+      localStorage.setItem('copybatch_quota', JSON.stringify({ date: today, count: 0 }));
+      return 9999999999;
+    }
+
+    function updateQuota(amount) {
+      var today = new Date().toDateString();
+      var savedData = localStorage.getItem('copybatch_quota');
+      if (savedData) {
+        var data = JSON.parse(savedData);
+        var newCount = data.count + amount;
+        localStorage.setItem('copybatch_quota', JSON.stringify({ date: today, count: newCount }));
+      }
+    }
+
+    function updateQuotaDisplay() {
+      var quota = getQuota();
+      var display = document.getElementById('quotaDisplay');
+      if (quota > 0) {
+        display.innerHTML = 'You have <span class="text-accent-400 font-semibold">' + quota + '</span> free generations remaining today';
+      } else {
+        display.innerHTML = '<span class="text-orange-400">Daily free quota exceeded. <button onclick="document.querySelector(\'#pricing\').scrollIntoView({behavior:\'smooth\'})" class="text-accent-400 hover:underline">Upgrade now</button></span>';
+      }
+    }
+
+    function generateContent() {
+      var keyword = document.getElementById('keywordInput').value.trim();
+      var count = parseInt(document.getElementById('countSlider').value);
+      var quota = getQuota();
+
+      if (!keyword) {
+        alert('Please enter a keyword');
+        return;
+      }
+
+      if (quota < count) {
+        document.getElementById('upgradeModal').classList.remove('hidden');
+        return;
+      }
+
+      var generateBtn = document.getElementById('generateBtn');
+      generateBtn.innerHTML = '<svg class="animate-spin h-5 w-5" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" /><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" /></svg> Generating...';
+      generateBtn.disabled = true;
+
+      setTimeout(function() {
+        var scenarioResults = mockResults[selectedScenario][selectedStyle] || [];
+        results = [];
+        for (var i = 0; i < Math.min(count, scenarioResults.length); i++) {
+          results.push({
+            id: i,
+            content: scenarioResults[i].replace(/\[Topic\]|\[topic\]|\[subject\]|\[Subject\]|\[Topic\]/g, keyword)
+          });
+        }
+        displayResults();
+        updateQuota(count);
+        updateQuotaDisplay();
+        generateBtn.innerHTML = 'Generate Content';
+        generateBtn.disabled = false;
+      }, 1500);
+    }
+
+    function displayResults() {
+      var container = document.getElementById('resultsContainer');
+      var list = document.getElementById('resultsList');
+      list.innerHTML = '';
+
+      results.forEach(function(result, index) {
+        var item = document.createElement('div');
+        item.className = 'bg-dark-900 border border-dark-700 rounded-xl p-4';
+        item.innerHTML = `
+          <div class="flex items-start justify-between gap-4">
+            <div class="flex-1">
+              <p class="text-gray-300">${result.content}</p>
+            </div>
+            <button onclick="copyToClipboard('${result.content.replace(/'/g, "\\'")}', this)" class="flex-shrink-0 p-2 hover:bg-dark-800 rounded-lg transition-colors">
+              <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+              </svg>
+            </button>
+          </div>
+        `;
+        list.appendChild(item);
+      });
+
+      container.classList.remove('hidden');
+      container.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function copyToClipboard(text, btn) {
+      navigator.clipboard.writeText(text).then(function() {
+        var svg = btn.querySelector('svg');
+        svg.innerHTML = '<path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />';
+        svg.classList.add('text-accent-400');
+        setTimeout(function() {
+          svg.innerHTML = '<path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />';
+          svg.classList.remove('text-accent-400');
+        }, 2000);
+      });
+    }
+
+    function copyAllResults() {
+      var allText = results.map(function(r) { return r.content; }).join('\n\n---\n\n');
+      navigator.clipboard.writeText(allText).then(function() {
+        var btn = document.getElementById('copyAllBtn');
+        var svg = btn.querySelector('svg');
+        btn.innerHTML = '<svg class="w-4 h-4 text-accent-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" /></svg> Copied!';
+        setTimeout(function() {
+          btn.innerHTML = '<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg> Copy All';
+        }, 2000);
+      });
+    }
+
+    function closeModal() {
+      document.getElementById('upgradeModal').classList.add('hidden');
+    }
+
+    function loadPricingMode() {
+      var mode = 1;
+      if (typeof copybatchConfig !== 'undefined' && copybatchConfig.pricingMode) {
+        mode = copybatchConfig.pricingMode;
+      }
+      var plan1 = document.getElementById('pricingPlan1');
+      var plan2 = document.getElementById('pricingPlan2');
+
+      if (mode === 1) {
+        plan1.classList.remove('hidden');
+        plan2.classList.add('hidden');
+      } else {
+        plan1.classList.add('hidden');
+        plan2.classList.remove('hidden');
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      updateQuotaDisplay();
+      loadPricingMode();
+    });
+  </script>
+</body>
+</html>
