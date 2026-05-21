@@ -65,13 +65,13 @@
           <a href="#home" class="text-gray-400 hover:text-accent-400 transition-colors">Home</a>
           <a href="#generator" class="text-gray-400 hover:text-accent-400 transition-colors">Generator</a>
           <a href="#features" class="text-gray-400 hover:text-accent-400 transition-colors">Features</a>
-          <a href="#pricing" class="text-gray-400 hover:text-accent-400 transition-colors">Pricing</a>
+          <a id="navPricing" href="#pricing" class="text-gray-400 hover:text-accent-400 transition-colors">Pricing</a>
           <a href="#how-it-works" class="text-gray-400 hover:text-accent-400 transition-colors">How It Works</a>
         </div>
 
         <div class="hidden md:flex items-center gap-4">
-          <button class="px-4 py-2 text-gray-400 hover:text-white transition-colors">Sign In</button>
-          <a href="#pricing" class="px-5 py-2.5 bg-gradient-accent text-white font-semibold rounded-lg hover:opacity-90 transition-opacity">Get Started</a>
+          <button id="signInBtn" onclick="openLoginModal()" class="px-4 py-2 text-gray-400 hover:text-white transition-colors">Sign In</button>
+          <a id="getStartedBtn" href="#pricing" class="px-5 py-2.5 bg-gradient-accent text-white font-semibold rounded-lg hover:opacity-90 transition-opacity">Get Started</a>
         </div>
 
         <button id="mobileMenuBtn" class="md:hidden text-white p-2" onclick="toggleMobileMenu()">
@@ -86,11 +86,11 @@
           <a href="#home" class="text-gray-400 hover:text-accent-400 transition-colors" onclick="toggleMobileMenu()">Home</a>
           <a href="#generator" class="text-gray-400 hover:text-accent-400 transition-colors" onclick="toggleMobileMenu()">Generator</a>
           <a href="#features" class="text-gray-400 hover:text-accent-400 transition-colors" onclick="toggleMobileMenu()">Features</a>
-          <a href="#pricing" class="text-gray-400 hover:text-accent-400 transition-colors" onclick="toggleMobileMenu()">Pricing</a>
+          <a id="mobileNavPricing" href="#pricing" class="text-gray-400 hover:text-accent-400 transition-colors" onclick="toggleMobileMenu()">Pricing</a>
           <a href="#how-it-works" class="text-gray-400 hover:text-accent-400 transition-colors" onclick="toggleMobileMenu()">How It Works</a>
           <div class="flex flex-col gap-3 mt-4 pt-4 border-t border-dark-700">
-            <button class="px-4 py-2 text-gray-400 hover:text-white transition-colors">Sign In</button>
-            <a href="#pricing" class="px-5 py-2.5 bg-gradient-accent text-white font-semibold rounded-lg hover:opacity-90 transition-opacity text-center" onclick="toggleMobileMenu()">Get Started</a>
+            <button onclick="openLoginModal(); toggleMobileMenu()" class="px-4 py-2 text-gray-400 hover:text-white transition-colors">Sign In</button>
+            <a id="mobileGetStartedBtn" href="#pricing" class="px-5 py-2.5 bg-gradient-accent text-white font-semibold rounded-lg hover:opacity-90 transition-opacity text-center" onclick="toggleMobileMenu()">Get Started</a>
           </div>
         </div>
       </div>
@@ -485,6 +485,19 @@
     </div>
   </section>
 
+  <section class="py-8 bg-accent-500/10 border-t border-accent-500/20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col md:flex-row items-center justify-center gap-4 text-center">
+        <svg class="w-6 h-6 text-accent-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+        </svg>
+        <p class="text-lg text-white font-semibold">
+          If you encounter any issues or need custom feature development, please contact us via email at <a href="mailto:531871883@qq.com" class="text-accent-400 hover:underline">531871883@qq.com</a>
+        </p>
+      </div>
+    </div>
+  </section>
+
   <footer class="bg-dark-900 border-t border-dark-700">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
       <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
@@ -538,8 +551,53 @@
         <p class="text-gray-400 mb-6">Upgrade to unlock unlimited content generation and advanced features.</p>
         <div class="flex gap-3">
           <button onclick="closeModal()" class="flex-1 py-3 bg-dark-700 text-gray-300 font-semibold rounded-xl hover:bg-dark-600 transition-colors">Close</button>
-          <button onclick="closeModal(); document.querySelector('#pricing').scrollIntoView({behavior:'smooth'})" class="flex-1 py-3 bg-gradient-accent text-white font-semibold rounded-xl hover:opacity-90 transition-opacity">Upgrade Now</button>
+          <button id="upgradeModalPricingBtn" onclick="closeModal(); document.querySelector('#pricing').scrollIntoView({behavior:'smooth'})" class="flex-1 py-3 bg-gradient-accent text-white font-semibold rounded-xl hover:opacity-90 transition-opacity">Upgrade Now</button>
         </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="loginModal" class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4 hidden">
+    <div class="bg-dark-800 border border-dark-700 rounded-2xl p-8 max-w-md w-full">
+      <div class="text-center mb-6">
+        <div class="w-16 h-16 bg-accent-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
+          <svg class="w-8 h-8 text-accent-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+          </svg>
+        </div>
+        <h3 class="text-xl font-bold text-white mb-2">Sign In</h3>
+        <p class="text-gray-400">Enter your email and activation code to login</p>
+      </div>
+      <div class="space-y-4">
+        <div>
+          <label class="block text-white font-semibold mb-2">Email Address</label>
+          <input id="loginEmail" type="email" placeholder="Enter your email"
+            class="w-full bg-dark-900 border border-dark-600 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-accent-500 transition-colors" />
+        </div>
+        <div>
+          <label class="block text-white font-semibold mb-2">Activation Code</label>
+          <input id="loginActivationCode" type="text" placeholder="Enter activation code"
+            class="w-full bg-dark-900 border border-dark-600 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-accent-500 transition-colors" />
+        </div>
+        <div class="flex gap-3">
+          <button id="loginCloseBtn" onclick="closeLoginModal()" class="flex-1 py-3 bg-dark-700 text-gray-300 font-semibold rounded-xl hover:bg-dark-600 transition-colors">Close</button>
+          <button id="loginSubmitBtn" onclick="handleLogin()" disabled class="flex-1 py-3 bg-dark-600 text-gray-500 font-semibold rounded-xl cursor-not-allowed">Login</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="loginErrorModal" class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4 hidden">
+    <div class="bg-dark-800 border border-dark-700 rounded-2xl p-8 max-w-md w-full">
+      <div class="text-center">
+        <div class="w-16 h-16 bg-red-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
+          <svg class="w-8 h-8 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+        </div>
+        <h3 class="text-xl font-bold text-white mb-2">Login Failed</h3>
+        <p class="text-gray-400 mb-6">Please confirm that your activation code is invalid. Please ensure it is within the validity period and correctly filled. To purchase an activation code, please visit Gumroad.</p>
+        <button onclick="closeLoginErrorModal()" class="w-full py-3 bg-gradient-accent text-white font-semibold rounded-xl hover:opacity-90 transition-opacity">OK</button>
       </div>
     </div>
   </div>
@@ -548,6 +606,192 @@
     var selectedScenario = 'product';
     var selectedStyle = 'professional';
     var results = [];
+    var currentUser = null;
+    const XOR_KEY = 'Aaron2046';
+
+    function xorEncryptDecrypt(data, key) {
+      var result = '';
+      for (var i = 0; i < data.length; i++) {
+        result += String.fromCharCode(data.charCodeAt(i) ^ key.charCodeAt(i % key.length));
+      }
+      return result;
+    }
+
+    function base64XorEncode(data) {
+      var xorResult = xorEncryptDecrypt(data, XOR_KEY);
+      return btoa(xorResult);
+    }
+
+    function base64XorDecode(encoded) {
+      try {
+        var decoded = atob(encoded);
+        return xorEncryptDecrypt(decoded, XOR_KEY);
+      } catch (e) {
+        return null;
+      }
+    }
+
+    function getUsersFile() {
+      var data = localStorage.getItem('copybatch_users');
+      return data ? JSON.parse(data) : [];
+    }
+
+    function saveUsersFile(users) {
+      localStorage.setItem('copybatch_users', JSON.stringify(users));
+    }
+
+    function validateActivationCode(activationCode) {
+      var decoded = base64XorDecode(activationCode);
+      if (!decoded) return { valid: false, message: 'Invalid format' };
+
+      var parts = decoded.split('+');
+      if (parts.length !== 3) return { valid: false, message: 'Invalid format' };
+
+      var [purchaseType, author, date] = parts;
+      
+      if (!purchaseType || !author || !date) {
+        return { valid: false, message: 'Missing fields' };
+      }
+
+      if (!author.includes('author:zhuangchp')) {
+        return { valid: false, message: 'Invalid author' };
+      }
+
+      var purchaseTypeNum = parseInt(purchaseType);
+      if (isNaN(purchaseTypeNum)) {
+        return { valid: false, message: 'Invalid purchase type' };
+      }
+
+      if (purchaseTypeNum !== 0 && (purchaseTypeNum < 1 || purchaseTypeNum > 12)) {
+        return { valid: false, message: 'Invalid purchase type range' };
+      }
+
+      return { 
+        valid: true, 
+        message: 'Valid',
+        purchaseType: purchaseTypeNum,
+        expiresDate: date
+      };
+    }
+
+    function isSubscriptionValid(firstLoginDate, purchaseType) {
+      if (purchaseType === 0) return true;
+
+      var firstDate = new Date(firstLoginDate);
+      var expiryDate = new Date(firstDate);
+      expiryDate.setMonth(expiryDate.getMonth() + purchaseType);
+      
+      var today = new Date();
+      return expiryDate > today;
+    }
+
+    function openLoginModal() {
+      document.getElementById('loginModal').classList.remove('hidden');
+      document.getElementById('loginEmail').value = '';
+      document.getElementById('loginActivationCode').value = '';
+      updateLoginButtonState();
+    }
+
+    function closeLoginModal() {
+      document.getElementById('loginModal').classList.add('hidden');
+    }
+
+    function closeLoginErrorModal() {
+      document.getElementById('loginErrorModal').classList.add('hidden');
+    }
+
+    function updateLoginButtonState() {
+      var email = document.getElementById('loginEmail').value.trim();
+      var code = document.getElementById('loginActivationCode').value.trim();
+      var btn = document.getElementById('loginSubmitBtn');
+
+      if (email && code) {
+        btn.disabled = false;
+        btn.classList.remove('bg-dark-600', 'text-gray-500', 'cursor-not-allowed');
+        btn.classList.add('bg-gradient-accent', 'text-white', 'hover:opacity-90', 'transition-opacity');
+      } else {
+        btn.disabled = true;
+        btn.classList.remove('bg-gradient-accent', 'text-white', 'hover:opacity-90', 'transition-opacity');
+        btn.classList.add('bg-dark-600', 'text-gray-500', 'cursor-not-allowed');
+      }
+    }
+
+    function handleLogin() {
+      var email = document.getElementById('loginEmail').value.trim();
+      var activationCode = document.getElementById('loginActivationCode').value.trim();
+
+      var validation = validateActivationCode(activationCode);
+      if (!validation.valid) {
+        document.getElementById('loginErrorModal').classList.remove('hidden');
+        return;
+      }
+
+      var users = getUsersFile();
+      var existingUser = users.find(u => u.email === email);
+
+      if (existingUser) {
+        if (existingUser.activationCode !== activationCode) {
+          document.getElementById('loginErrorModal').classList.remove('hidden');
+          return;
+        }
+
+        if (validation.purchaseType !== 0 && !isSubscriptionValid(existingUser.firstLoginDate, validation.purchaseType)) {
+          document.getElementById('loginErrorModal').classList.remove('hidden');
+          return;
+        }
+      } else {
+        var newUser = {
+          email: email,
+          activationCode: activationCode,
+          firstLoginDate: new Date().toISOString().split('T')[0]
+        };
+        users.push(newUser);
+        saveUsersFile(users);
+      }
+
+      currentUser = { email: email, isUnlimited: true };
+      updateUserDisplay();
+      closeLoginModal();
+      updateQuotaDisplay();
+    }
+
+    function updateUserDisplay() {
+      var signInBtn = document.getElementById('signInBtn');
+      var userDisplay = document.getElementById('userDisplay');
+
+      if (currentUser) {
+        if (!userDisplay) {
+          userDisplay = document.createElement('div');
+          userDisplay.id = 'userDisplay';
+          userDisplay.className = 'flex items-center gap-2 px-3 py-2 bg-dark-800 rounded-lg';
+          userDisplay.innerHTML = `
+            <svg class="w-5 h-5 text-accent-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+            </svg>
+            <span class="text-white text-sm">${currentUser.email}</span>
+            <button onclick="logout()" class="ml-2 text-gray-400 hover:text-white text-xs">Logout</button>
+          `;
+          signInBtn.parentNode.insertBefore(userDisplay, signInBtn);
+        }
+        signInBtn.style.display = 'none';
+      } else {
+        if (userDisplay) {
+          userDisplay.remove();
+        }
+        signInBtn.style.display = 'block';
+      }
+    }
+
+    function logout() {
+      currentUser = null;
+      updateUserDisplay();
+      updateQuotaDisplay();
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      document.getElementById('loginEmail').addEventListener('input', updateLoginButtonState);
+      document.getElementById('loginActivationCode').addEventListener('input', updateLoginButtonState);
+    });
 
     var mockResults = {
       product: {
@@ -892,6 +1136,9 @@
     });
 
     function getQuota() {
+      if (currentUser && currentUser.isUnlimited) {
+        return Infinity;
+      }
       var today = new Date().toDateString();
       var savedData = localStorage.getItem('copybatch_quota');
       if (savedData) {
@@ -919,10 +1166,21 @@
     function updateQuotaDisplay() {
       var quota = getQuota();
       var display = document.getElementById('quotaDisplay');
-      if (quota > 0) {
+      var pricingMode = 1;
+      if (copybatchConfig && copybatchConfig.pricingMode !== undefined) {
+        pricingMode = copybatchConfig.pricingMode;
+      }
+      
+      if (quota === Infinity) {
+        display.innerHTML = '<span class="text-accent-400 font-semibold">Unlimited</span> generations available';
+      } else if (quota > 0) {
         display.innerHTML = 'You have <span class="text-accent-400 font-semibold">' + quota + '</span> free generations remaining today';
       } else {
-        display.innerHTML = '<span class="text-orange-400">Daily free quota exceeded. <button onclick="document.querySelector(\'#pricing\').scrollIntoView({behavior:\'smooth\'})" class="text-accent-400 hover:underline">Upgrade now</button></span>';
+        if (pricingMode === 0) {
+          display.innerHTML = '<span class="text-orange-400">Daily free quota exceeded.</span>';
+        } else {
+          display.innerHTML = '<span class="text-orange-400">Daily free quota exceeded. <button onclick="document.querySelector(\'#pricing\').scrollIntoView({behavior:\'smooth\'})" class="text-accent-400 hover:underline">Upgrade now</button></span>';
+        }
       }
     }
 
@@ -1019,18 +1277,37 @@
 
     function loadPricingMode() {
       var mode = 1;
-      if (typeof copybatchConfig !== 'undefined' && copybatchConfig.pricingMode) {
+      if (typeof copybatchConfig !== 'undefined' && copybatchConfig && copybatchConfig.pricingMode !== undefined) {
         mode = copybatchConfig.pricingMode;
       }
-      var plan1 = document.getElementById('pricingPlan1');
-      var plan2 = document.getElementById('pricingPlan2');
+      
+      var pricingSection = document.getElementById('pricing');
+      var navPricing = document.getElementById('navPricing');
+      var mobileNavPricing = document.getElementById('mobileNavPricing');
+      var getStartedBtn = document.getElementById('getStartedBtn');
+      var mobileGetStartedBtn = document.getElementById('mobileGetStartedBtn');
+      var footerPricing = document.querySelector('footer a[href="#pricing"]');
+      var upgradeModalPricingBtn = document.getElementById('upgradeModalPricingBtn');
 
-      if (mode === 1) {
-        plan1.classList.remove('hidden');
-        plan2.classList.add('hidden');
+      if (mode === 0) {
+        if (pricingSection) pricingSection.style.display = 'none';
+        if (navPricing) navPricing.style.display = 'none';
+        if (mobileNavPricing) mobileNavPricing.style.display = 'none';
+        if (getStartedBtn) getStartedBtn.style.display = 'none';
+        if (mobileGetStartedBtn) mobileGetStartedBtn.style.display = 'none';
+        if (footerPricing) footerPricing.style.display = 'none';
+        if (upgradeModalPricingBtn) upgradeModalPricingBtn.style.display = 'none';
       } else {
-        plan1.classList.add('hidden');
-        plan2.classList.remove('hidden');
+        var plan1 = document.getElementById('pricingPlan1');
+        var plan2 = document.getElementById('pricingPlan2');
+
+        if (mode === 1) {
+          plan1.classList.remove('hidden');
+          plan2.classList.add('hidden');
+        } else {
+          plan1.classList.add('hidden');
+          plan2.classList.remove('hidden');
+        }
       }
     }
 

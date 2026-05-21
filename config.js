@@ -1,3 +1,3 @@
 var copybatchConfig = {
-  pricingMode: 2
+  pricingMode: 0
 };
